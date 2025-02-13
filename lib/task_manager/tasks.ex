@@ -18,7 +18,7 @@ defmodule TaskManager.Tasks do
 
   """
   def list_tasks do
-    Repo.all(Task)
+    Repo.all(Task) |> Repo.preload([:user]) |> Enum.map(&Map.from_struct/1)
   end
 
   @doc """
@@ -100,5 +100,10 @@ defmodule TaskManager.Tasks do
   """
   def change_task(%Task{} = task, attrs \\ %{}) do
     Task.changeset(task, attrs)
+  end
+
+  def empty_changeset do
+    %Task{}
+    |> Ecto.Changeset.change(%{title: "", description: "", status: "pending"})
   end
 end
