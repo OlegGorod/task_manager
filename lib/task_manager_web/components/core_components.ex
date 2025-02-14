@@ -277,7 +277,8 @@ defmodule TaskManagerWeb.CoreComponents do
     values: ~w(checkbox color date datetime-local email file hidden month number password
                range radio search select tel text textarea time url week)
 
-  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField,
+    doc: "a form field struct retrieved from the form, for example: @form[:email]"
 
   attr :errors, :list, default: []
   attr :checked, :boolean, doc: "the checked flag for checkbox inputs"
@@ -285,7 +286,8 @@ defmodule TaskManagerWeb.CoreComponents do
   attr :options, :list, doc: "the options to pass to Phoenix.HTML.Form.options_for_select/2"
   attr :multiple, :boolean, default: false, doc: "the multiple flag for select inputs"
 
-  attr :rest, :global, include: ~w(accept autocomplete capture cols disabled form list max maxlength min minlength
+  attr :rest, :global,
+    include: ~w(accept autocomplete capture cols disabled form list max maxlength min minlength
                 multiple pattern placeholder readonly required rows size step)
 
   slot :inner_block
@@ -472,13 +474,13 @@ defmodule TaskManagerWeb.CoreComponents do
 
     ~H"""
     <div class="overflow-hidden rounded-lg border border-gray-300 shadow-md">
-      <table class="min-w-full bg-white divide-y divide-gray-200">
-        <thead class="bg-gray-50 text-gray-700">
+      <table class="min-w-full bg-white divide-y divide-gray-300">
+        <thead class="bg-gray-100 text-gray-800 text-base">
           <tr>
-            <th :for={col <- @col} class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">
+            <th :for={col <- @col} class="px-6 py-3 text-left font-semibold uppercase tracking-wide">
               <%= col[:label] %>
             </th>
-            <th :if={@action != []} class="px-6 py-3 text-right text-sm font-medium uppercase tracking-wider">
+            <th :if={@action != []} class="px-6 py-3 text-left font-semibold uppercase tracking-wide">
               Actions
             </th>
           </tr>
@@ -486,7 +488,7 @@ defmodule TaskManagerWeb.CoreComponents do
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
-          class="divide-y divide-gray-200 text-sm text-gray-900"
+          class="divide-y divide-gray-200 text-gray-900 text-base"
         >
           <tr
             :for={row <- @rows}
@@ -502,13 +504,10 @@ defmodule TaskManagerWeb.CoreComponents do
                 <%= render_slot(col, @row_item.(row)) %>
               </span>
             </td>
-            <td :if={@action != []} class="px-6 py-4 text-right">
-              <span
-                :for={action <- @action}
-                class="ml-4 text-indigo-600 hover:text-indigo-900 font-semibold transition duration-200 ease-in-out"
-              >
+            <td :if={@action != []} class="px-6 py-4 text-center">
+              <div :for={action <- @action} class="flex items-center gap-4">
                 <%= render_slot(action, @row_item.(row)) %>
-              </span>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -557,7 +556,10 @@ defmodule TaskManagerWeb.CoreComponents do
   def back(assigns) do
     ~H"""
     <div class="mt-16">
-      <.link navigate={@navigate} class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700">
+      <.link
+        navigate={@navigate}
+        class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
+      >
         <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
         <%= render_slot(@inner_block) %>
       </.link>
@@ -598,7 +600,8 @@ defmodule TaskManagerWeb.CoreComponents do
     JS.show(js,
       to: selector,
       transition:
-        {"transition-all transform ease-out duration-300", "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
+        {"transition-all transform ease-out duration-300",
+         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
          "opacity-100 translate-y-0 sm:scale-100"}
     )
   end
@@ -608,7 +611,8 @@ defmodule TaskManagerWeb.CoreComponents do
       to: selector,
       time: 200,
       transition:
-        {"transition-all transform ease-in duration-200", "opacity-100 translate-y-0 sm:scale-100",
+        {"transition-all transform ease-in duration-200",
+         "opacity-100 translate-y-0 sm:scale-100",
          "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}
     )
   end

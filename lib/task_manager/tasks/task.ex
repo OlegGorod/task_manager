@@ -15,7 +15,8 @@ defmodule TaskManager.Tasks.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :description, :status])
-    |> validate_required([:title, :description, :status])
+    |> cast(attrs, [:title, :description, :status, :user_id])
+    |> validate_required([:title, :description, :status, :user_id])
+    |> foreign_key_constraint(:user_id)
   end
 end
