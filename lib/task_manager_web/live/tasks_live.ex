@@ -7,6 +7,10 @@ defmodule TaskManagerWeb.TasksLive do
   alias TaskManagerWeb.Utils.Utils
 
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Phoenix.PubSub.subscribe(TaskManager.PubSub, "tasks")
+    end
+
     {:ok,
      assign(socket,
        tasks: Tasks.list_tasks_by_status("all"),
@@ -44,9 +48,13 @@ defmodule TaskManagerWeb.TasksLive do
     {:noreply, assign(socket, show_delete_modal: false)}
   end
 
-  def handle_info(:reload, socket) do
+  def handle_info({Tasks, [:task, _created_updated_deleted], _task}, socket) do
     {:noreply,
-     assign(socket, tasks: Tasks.list_tasks(), show_modal: false, show_delete_modal: false)}
+     assign(socket,
+       tasks: Tasks.list_tasks_by_status("all"),
+       show_modal: false,
+       show_delete_modal: false
+     )}
   end
 
   def render(assigns) do

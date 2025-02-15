@@ -5,7 +5,6 @@ defmodule TaskManagerWeb.Tasks.DeleteModal do
   def handle_event("delete_task", _, socket) do
     case Tasks.delete_task(socket.assigns.task) do
       {:ok, _} ->
-        send(self(), :reload)
         {:noreply, socket}
 
       {:error, %Ecto.Changeset{}} ->

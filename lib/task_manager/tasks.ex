@@ -8,6 +8,13 @@ defmodule TaskManager.Tasks do
 
   alias TaskManager.Tasks.Task
 
+  defp broadcast_change({:ok, result}, event) do
+    Phoenix.PubSub.broadcast(TaskManager.PubSub, "tasks", {__MODULE__, event, result})
+    {:ok, result}
+  end
+
+  defp broadcast_change({:error, reason}, _event), do: {:error, reason}
+
   @doc """
   Returns the list of tasks.
 
@@ -53,6 +60,7 @@ defmodule TaskManager.Tasks do
     %Task{}
     |> Task.changeset(attrs)
     |> Repo.insert()
+    |> broadcast_change([:task, :created])
   end
 
   @doc """
@@ -71,6 +79,7 @@ defmodule TaskManager.Tasks do
     task
     |> Task.changeset(attrs)
     |> Repo.update()
+    |> broadcast_change([:task, :updated])
   end
 
   @doc """
@@ -86,7 +95,9 @@ defmodule TaskManager.Tasks do
 
   """
   def delete_task(%Task{} = task) do
-    Repo.delete(task)
+    task
+    |> Repo.delete()
+    |> broadcast_change([:task, :deleted])
   end
 
   @doc """

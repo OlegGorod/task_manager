@@ -22,8 +22,6 @@ defmodule TaskManagerWeb.Tasks.TaskModal do
 
     case Tasks.create_task(task_params) do
       {:ok, _task} ->
-        send(self(), :reload)
-
         {:noreply, socket}
 
       {:error, changeset} ->
@@ -34,7 +32,6 @@ defmodule TaskManagerWeb.Tasks.TaskModal do
   def handle_event("update", %{"task" => task_params}, socket) do
     case Tasks.update_task(socket.assigns.task, task_params) do
       {:ok, _task} ->
-        send(self(), :reload)
         {:noreply, socket}
 
       {:error, changeset} ->
