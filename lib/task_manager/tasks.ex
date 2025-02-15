@@ -106,4 +106,12 @@ defmodule TaskManager.Tasks do
     %Task{}
     |> Ecto.Changeset.change(%{title: "", description: "", status: "pending"})
   end
+
+  def list_tasks_by_status("all"), do: list_tasks()
+
+  def list_tasks_by_status(status) do
+    Repo.all(from t in Task, where: t.status == ^status, preload: [:user])
+  end
+
+  def list_statuses, do: Repo.all(from t in Task, select: t.status) |> Enum.uniq()
 end

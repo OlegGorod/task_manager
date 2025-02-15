@@ -4,17 +4,24 @@ defmodule TaskManagerWeb.TasksLive do
   alias TaskManager.Tasks
   alias TaskManagerWeb.Tasks.TaskModal
   alias TaskManagerWeb.Tasks.DeleteModal
+  alias TaskManagerWeb.Utils.Utils
 
   def mount(_params, _session, socket) do
     {:ok,
      assign(socket,
-       tasks: Tasks.list_tasks(),
+       tasks: Tasks.list_tasks_by_status("all"),
        show_modal: false,
        show_delete_modal: false,
+       selected_filter: "all",
+       status_options: Utils.task_status_options(),
        task: nil,
        current_user: socket.assigns.current_user,
        action: ""
      )}
+  end
+
+  def handle_event("filter_tasks", %{"status_filter" => filter}, socket) do
+    {:noreply, assign(socket, tasks: Tasks.list_tasks_by_status(filter), selected_filter: filter)}
   end
 
   def handle_event("open_modal", %{"action" => action} = params, socket) do
@@ -47,14 +54,26 @@ defmodule TaskManagerWeb.TasksLive do
     <div class="container mx-auto p-4">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold text-gray-dark">Tasks</h2>
-        <button
-          class="px-4 py-2 bg-primary text-white font-bold text-base rounded-lg shadow-md hover:bg-primary-hover transition-all duration-300"
-          phx-click="open_modal"
-          phx-value-action="new"
-        >
-          + Create Task
-        </button>
+        <div class="flex items-center gap-4">
+          <form phx-change="filter_tasks">
+            <.input
+              type="select"
+              name="status_filter"
+              options={@status_options}
+              value={@selected_filter}
+            />
+          </form>
+
+          <button
+            class="px-4 py-2 bg-primary text-white font-bold text-base rounded-lg shadow-md hover:bg-primary-hover transition-all duration-300"
+            phx-click="open_modal"
+            phx-value-action="new"
+          >
+            + Create Task
+          </button>
+        </div>
       </div>
+
       <%= if(@tasks != []) do %>
         <.table id="tasks" rows={@tasks}>
           <:col :let={task} label="ID"><%= task.id %></:col>
