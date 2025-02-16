@@ -80,10 +80,13 @@ defmodule TaskManagerWeb.TasksLive do
   def render(assigns) do
     ~H"""
     <div class="container mx-auto p-4">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold text-gray-dark">Tasks</h2>
-        <span class="text-gray-600"><%= @online_users %> users online</span>
-        <div class="flex items-center gap-4">
+      <div class="mb-4 flex flex-col justify-between items-start gap-1 sm:flex sm:items-center sm:flex-row">
+        <div class="flex flex-col justify-between items-start gap-1 sm:flex-row sm:justify-start sm:items-center sm:gap-4">
+          <h2 class="text-xl font-semibold text-gray-dark">Tasks</h2>
+          <span class="text-gray-600"><%= @online_users %> users online</span>
+        </div>
+
+        <div class="flex flex-col justify-between items-start gap-1 sm:justify-start sm:flex-row sm:items-center sm:gap-4">
           <form phx-change="filter_tasks">
             <.input
               type="select"

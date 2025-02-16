@@ -21,7 +21,7 @@ defmodule TaskManagerWeb.Tasks.DeleteModal do
     >
       <div
         id="stop-propagation"
-        class="bg-white p-6 rounded-lg shadow-lg w-1/3 text-center"
+        class="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-xl text-center"
         phx-hook="StopPropagation"
       >
         <h2 class="text-lg font-semibold mb-4">Are you sure you want to delete this task?</h2>

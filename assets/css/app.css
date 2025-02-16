@@ -3,3 +3,8 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+.padding-responsive {
+  @apply px-2 py-1 sm:px-6 sm:py-4
+}
+

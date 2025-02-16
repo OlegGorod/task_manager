@@ -48,7 +48,7 @@ defmodule TaskManagerWeb.Tasks.TaskModal do
     >
       <div
         id="stop-propagation"
-        class="bg-white p-6 rounded-lg shadow-lg w-1/3"
+        class="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md"
         phx-hook="StopPropagation"
       >
         <h2 class="text-lg font-semibold mb-4">

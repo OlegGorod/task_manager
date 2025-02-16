@@ -334,7 +334,7 @@ defmodule TaskManagerWeb.CoreComponents do
       <select
         id={@id}
         name={@name}
-        class="block w-full rounded-md border border-gray-300 bg-white shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
+        class="block w-4/5 sm:w-full rounded-md border border-gray-300 bg-white shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
         multiple={@multiple}
         {@rest}
       >
@@ -473,14 +473,20 @@ defmodule TaskManagerWeb.CoreComponents do
       end
 
     ~H"""
-    <div class="overflow-hidden rounded-lg border border-gray-300 shadow-md">
+    <div class="overflow-x-auto rounded-lg border border-gray-300 shadow-md">
       <table class="min-w-full bg-white divide-y divide-gray-300">
         <thead class="bg-gray-100 text-gray-800 text-base">
           <tr>
-            <th :for={col <- @col} class="px-6 py-3 text-left font-semibold uppercase tracking-wide">
+            <th
+              :for={col <- @col}
+              class="padding-responsive text-left font-semibold uppercase tracking-wide"
+            >
               <%= col[:label] %>
             </th>
-            <th :if={@action != []} class="px-6 py-3 text-left font-semibold uppercase tracking-wide">
+            <th
+              :if={@action != []}
+              class="padding-responsive text-left font-semibold uppercase tracking-wide"
+            >
               Actions
             </th>
           </tr>
@@ -498,14 +504,17 @@ defmodule TaskManagerWeb.CoreComponents do
             <td
               :for={{col, i} <- Enum.with_index(@col)}
               phx-click={@row_click && @row_click.(row)}
-              class={["px-6 py-4", @row_click && "hover:cursor-pointer"]}
+              class={["padding-responsive", @row_click && "hover:cursor-pointer"]}
             >
               <span class={["relative", i == 0 && "font-semibold text-gray-900"]}>
                 <%= render_slot(col, @row_item.(row)) %>
               </span>
             </td>
-            <td :if={@action != []} class="px-6 py-4 text-center">
-              <div :for={action <- @action} class="flex items-center gap-4">
+            <td :if={@action != []} class="padding-responsive text-center">
+              <div
+                :for={action <- @action}
+                class="flex flex-col items-center gap-1 sm:flex-row sm:gap-4"
+              >
                 <%= render_slot(action, @row_item.(row)) %>
               </div>
             </td>
