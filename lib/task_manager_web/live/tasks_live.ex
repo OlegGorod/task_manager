@@ -9,6 +9,13 @@ defmodule TaskManagerWeb.TasksLive do
   def mount(_params, _session, socket) do
     if connected?(socket) do
       Phoenix.PubSub.subscribe(TaskManager.PubSub, "tasks")
+      Phoenix.PubSub.subscribe(TaskManager.PubSub, "presence:tasks")
+
+      if socket.assigns[:current_user] do
+        TaskManagerWeb.Presence.track(self(), "presence:tasks", socket.id, %{
+          user: socket.assigns.current_user.email
+        })
+      end
     end
 
     {:ok,
@@ -20,7 +27,8 @@ defmodule TaskManagerWeb.TasksLive do
        status_options: Utils.task_status_options(),
        task: nil,
        current_user: socket.assigns.current_user,
-       action: ""
+       action: "",
+       online_users: 0
      )}
   end
 
@@ -57,11 +65,24 @@ defmodule TaskManagerWeb.TasksLive do
      )}
   end
 
+  def handle_info(%{event: "presence_diff", topic: topic}, socket) do
+    online_users_count =
+      TaskManagerWeb.Presence.list(topic)
+      |> Map.values()
+      |> Enum.flat_map(& &1.metas)
+      |> Enum.map(& &1.user)
+      |> Enum.uniq()
+      |> length()
+
+    {:noreply, assign(socket, online_users: online_users_count)}
+  end
+
   def render(assigns) do
     ~H"""
     <div class="container mx-auto p-4">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold text-gray-dark">Tasks</h2>
+        <span class="text-gray-600"><%= @online_users %> users online</span>
         <div class="flex items-center gap-4">
           <form phx-change="filter_tasks">
             <.input
