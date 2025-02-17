@@ -25,7 +25,7 @@ defmodule TaskManager.Tasks do
 
   """
   def list_tasks do
-    Repo.all(Task) |> Repo.preload([:user]) |> Enum.map(&Map.from_struct/1)
+    Repo.all(Task) |> Repo.preload([:user])
   end
 
   @doc """
@@ -42,7 +42,7 @@ defmodule TaskManager.Tasks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_task!(id), do: Repo.get!(Task, id) |> Repo.preload(:user)
 
   @doc """
   Creates a task.

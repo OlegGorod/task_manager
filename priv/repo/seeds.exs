@@ -48,9 +48,9 @@ end
 
 users =
   [
-    %{email: "admin1@google.com", password: "password123"},
-    %{email: "admin2@google.com", password: "password123"},
-    %{email: "admin3@google.com", password: "password123"}
+    %{email: "admin1@google.com", password: "password12345"},
+    %{email: "admin2@google.com", password: "password12345"},
+    %{email: "admin3@google.com", password: "password12345"}
   ]
   |> Enum.map(&SeedHelper.get_or_create_user/1)
   |> Enum.filter(& &1)

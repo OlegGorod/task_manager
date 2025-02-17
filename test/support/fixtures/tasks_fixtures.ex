@@ -4,19 +4,26 @@ defmodule TaskManager.TasksFixtures do
   entities via the `TaskManager.Tasks` context.
   """
 
+  alias TaskManager.Repo
+
+  import TaskManager.AccountsFixtures
+
   @doc """
   Generate a task.
   """
   def task_fixture(attrs \\ %{}) do
+    user = Map.get(attrs, :user) || user_fixture()
+
     {:ok, task} =
       attrs
       |> Enum.into(%{
         description: "some description",
-        status: "some status",
-        title: "some title"
+        status: "pending",
+        title: "some title",
+        user_id: user.id
       })
       |> TaskManager.Tasks.create_task()
 
-    task
+    Repo.preload(task, :user)
   end
 end
