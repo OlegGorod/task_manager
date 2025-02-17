@@ -18,7 +18,10 @@ defmodule TaskManagerWeb.Tasks.TaskModal do
   end
 
   def handle_event("create", %{"task" => task_params}, socket) do
-    task_params = Map.put(task_params, "user_id", socket.assigns.current_user.id)
+    task_params =
+      task_params
+      |> Map.put("user_id", socket.assigns.current_user.id)
+      |> Map.put("status", "pending")
 
     case Tasks.create_task(task_params) do
       {:ok, _task} ->
@@ -63,7 +66,14 @@ defmodule TaskManagerWeb.Tasks.TaskModal do
         >
           <.input field={f[:title]} label="Title" />
           <.input field={f[:description]} label="Description" type="textarea" />
-          <.input field={f[:status]} label="Status" type="select" options={["pending", "completed"]} />
+          <%= if @action == "edit" do %>
+            <.input
+              field={f[:status]}
+              label="Status"
+              type="select"
+              options={["pending", "completed"]}
+            />
+          <% end %>
           <div class="flex justify-end mt-4">
             <button
               type="button"
