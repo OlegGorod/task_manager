@@ -60,6 +60,16 @@ Start the Phoenix server (from the root directory):
 mix phx.server
 ```
 
+### 5. Default Logins
+
+To access the app, use one of the following accounts:
+
+- **Email:** `admin1@google.com`, **Password**: `password12345`
+- **Email:** `admin2@google.com`, **Password**: `password12345`
+- **Email:** `admin3@google.com`, **Password**: `password12345`
+
+All default accounts share the same password set in your seed configuration.
+
 The application will be available at [http://localhost:4000](http://localhost:4000).
 
 ## Key Design and Implementation Details
