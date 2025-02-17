@@ -1,5 +1,7 @@
 # Elixir LiveView Task Application
 
+![Watch Demo] https://github.com/user-attachments/assets/36b4967d-947d-41a9-a081-67d8b24245b7
+
 ## Overview
 
 This is a simple real-time collaborative task management application built with Phoenix LiveView. It allows users to create, update, delete, and track tasks in real time. The app ensures that the task list remains synchronized across all users without requiring page reloads, leveraging **Phoenix LiveView's** real-time capabilities.
@@ -7,6 +9,8 @@ This is a simple real-time collaborative task management application built with 
 The application follows a mobile-first design approach and uses **Tailwind CSS** for styling. It also features authentication with Phoenix built-in auth, dynamic task filtering
 
 The solution includes a **Dockerized PostgreSQL** database for persistent storage of users, tasks and all functionality runs locally with `mix phx.server`.
+
+
 
 ## Features
 
