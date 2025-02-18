@@ -35,8 +35,8 @@ defmodule SeedHelper do
   def create_tasks(users, count) do
     Enum.each(1..count, fn _ ->
       task = %Task{
-        title: Faker.Lorem.sentence(3),
-        description: Faker.Lorem.paragraph(2),
+        title: Faker.Lorem.sentence(1),
+        description: Faker.Lorem.sentence(2),
         status: Enum.random(["pending", "completed"]),
         user_id: Enum.random(users).id
       }
