@@ -80,13 +80,13 @@ defmodule TaskManagerWeb.TasksLive do
   def render(assigns) do
     ~H"""
     <div class="container mx-auto p-4">
-      <div class="mb-4 flex flex-col justify-between items-start gap-1 sm:flex sm:items-center sm:flex-row">
-        <div class="flex flex-col justify-between items-start gap-1 sm:flex-row sm:justify-start sm:items-center sm:gap-4">
+      <div class="mb-4 flex flex-col justify-between gap-1 sm:flex sm:items-center sm:flex-row">
+        <div class="flex flex-row justify-between gap-1 items-center sm:justify-start sm:gap-4">
           <h2 class="text-xl font-semibold text-gray-dark">Tasks</h2>
           <span class="text-gray-600"><%= @online_users %> users online</span>
         </div>
 
-        <div class="flex flex-col justify-between items-start gap-1 sm:justify-start sm:flex-row sm:items-center sm:gap-4">
+        <div class="flex flex-row justify-between items-center gap-1 sm:justify-start sm:gap-4">
           <form phx-change="filter_tasks">
             <.input
               type="select"
@@ -97,7 +97,7 @@ defmodule TaskManagerWeb.TasksLive do
           </form>
 
           <button
-            class="px-4 py-2 bg-primary text-white font-bold text-base rounded-lg shadow-md hover:bg-primary-hover transition-all duration-300"
+            class="px-4 py-2 bg-primary text-white font-bold text-base rounded-lg shadow-md hover:bg-primary-hover transition-all duration-300 whitespace-nowrap"
             phx-click="open_modal"
             phx-value-action="new"
           >
@@ -112,7 +112,7 @@ defmodule TaskManagerWeb.TasksLive do
           <:col :let={task} label="Title"><%= task.title %></:col>
           <:col :let={task} label="Description"><%= task.description %></:col>
           <:col :let={task} label="Status">
-            <span class={"px-4 py-2 text-white rounded #{if task.status == "completed", do: "bg-primary", else: "bg-gray-dark"}"}>
+            <span class={"px-1 py-1 sm:px-4 sm:py-2 text-white rounded #{if task.status == "completed", do: "bg-primary", else: "bg-gray-dark"}"}>
               <%= task.status %>
             </span>
           </:col>

@@ -4,7 +4,7 @@
 
 /* This file is for your main application CSS */
 
-.padding-responsive {
+.table-padding-respons {
   @apply px-2 py-1 sm:px-6 sm:py-4
 }
 
