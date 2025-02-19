@@ -1,6 +1,6 @@
 # Elixir LiveView Task Application
 
-![Watch Demo] https://github.com/user-attachments/assets/a738712b-090f-430e-8aa0-9de981e63ff7
+![Watch Demo] [https://github.com/user-attachments/assets/a738712b-090f-430e-8aa0-9de981e63ff7](https://github.com/user-attachments/assets/bff639f9-0fe2-4f21-a4d4-e383199a5a0a)
 
 ## Overview
 
