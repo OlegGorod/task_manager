@@ -474,8 +474,8 @@ defmodule TaskManagerWeb.CoreComponents do
 
     ~H"""
     <div class="overflow-x-auto rounded-lg border border-gray-300 shadow-md">
-      <table class="min-w-full bg-white divide-y divide-gray-300">
-        <thead class="bg-gray-100 text-gray-800 text-base hidden sm:table-header-group">
+      <table class="responsive-table">
+        <thead class="bg-gray-100 text-gray-800 text-base">
           <tr>
             <th
               :for={col <- @col}
@@ -499,27 +499,19 @@ defmodule TaskManagerWeb.CoreComponents do
           <tr
             :for={row <- @rows}
             id={@row_id && @row_id.(row)}
-            class="group hover:bg-gray-100 transition duration-200 ease-in-out block sm:table-row mb-4 sm:mb-0"
+            class="group hover:bg-gray-100 transition duration-200 ease-in-out mb-4 sm:mb-0"
           >
             <td
               :for={{col, _i} <- Enum.with_index(@col)}
               phx-click={@row_click && @row_click.(row)}
-              class="table-padding-respons block sm:table-cell text-right sm:text-left relative"
+              class="table-padding-respons"
               data-label={col[:label]}
             >
-              <span class="text-sm sm:text-base font-semibold sm:hidden absolute left-2 top-2 text-gray-600 uppercase">
-                <%= col[:label] %>:
-              </span>
-
               <span class="block text-sm sm:text-base ">
                 <%= render_slot(col, @row_item.(row)) %>
               </span>
             </td>
-            <td
-              :if={@action != []}
-              class="table-padding-respons text-center block sm:table-cell"
-              data-label="Actions"
-            >
+            <td :if={@action != []} class="table-padding-respons text-center" data-label="Actions">
               <div :for={action <- @action} class="flex items-center justify-between gap-2 sm:gap-4">
                 <%= render_slot(action, @row_item.(row)) %>
               </div>

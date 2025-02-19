@@ -8,3 +8,31 @@
   @apply px-2 py-1 sm:px-6 sm:py-4
 }
 
+.responsive-table {
+  @apply min-w-full divide-y divide-gray-300;
+  tbody, tr, td {
+    @apply flex;
+  }
+  thead {
+    @apply hidden sm:table-header-group;
+  }
+  tbody, tr {
+    @apply flex-col;
+  }
+  tbody {
+    @apply sm:table-row-group;
+  }
+  tr {
+    @apply sm:table-row;
+  }
+  td {
+    @apply sm:table-cell justify-between before:content-[attr(data-label)] text-right sm:text-left;
+    &:before {
+      @apply font-semibold text-gray-600 uppercase sm:hidden;
+    }
+    span.absolute {
+      display: none;
+    }
+  }
+}
+
