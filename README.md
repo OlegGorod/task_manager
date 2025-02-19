@@ -2,6 +2,11 @@
 
 ![Watch Demo] [https://github.com/user-attachments/assets/a738712b-090f-430e-8aa0-9de981e63ff7](https://github.com/user-attachments/assets/bff639f9-0fe2-4f21-a4d4-e383199a5a0a)
 
+## Deployment
+
+The application is deployed on [Fly.io](http://fly.io/).  
+Visit the deployed page here:  👉 **[Fly.io](https://task-manager-red-frost-3903.fly.dev/))**
+
 ## Overview
 
 This is a simple real-time collaborative task management application built with Phoenix LiveView. It allows users to create, update, delete, and track tasks in real time. The app ensures that the task list remains synchronized across all users without requiring page reloads, leveraging **Phoenix LiveView's** real-time capabilities.
