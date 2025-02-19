@@ -83,7 +83,9 @@ defmodule TaskManagerWeb.TasksLive do
       <div class="mb-4 flex flex-col justify-between gap-1 sm:flex sm:items-center sm:flex-row">
         <div class="flex flex-row justify-between gap-1 items-center sm:justify-start sm:gap-4">
           <h2 class="text-xl font-semibold text-gray-dark">Tasks</h2>
-          <span class="text-gray-600"><%= @online_users %> users online</span>
+          <span class="text-gray-600">
+            <%= @online_users %> <%= if @online_users == 1, do: "user", else: "users" %> online
+          </span>
         </div>
 
         <div class="flex flex-row justify-between items-center gap-1 sm:justify-start sm:gap-4">
